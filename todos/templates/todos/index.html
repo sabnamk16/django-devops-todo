@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', Arial, sans-serif;
+            background: #fdf0f3;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 50px 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(200, 100, 130, 0.12);
+            padding: 36px 32px;
+            width: 100%;
+            max-width: 560px;
+            height: fit-content;
+            border: 1px solid #f5d5de;
+        }
+
+        h1 {
+            color: #c45a7a;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 11px 16px;
+            border: 1.5px solid #f2c5d0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.92rem;
+            color: #3b1f27;
+            background: #fdf5f7;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input[type="text"]::placeholder { color: #c9a0ad; }
+        input[type="text"]:focus {
+            border-color: #e8698a;
+            box-shadow: 0 0 0 3px rgba(232, 105, 138, 0.14);
+            background: #fff;
+        }
+
+        button {
+            padding: 11px 20px;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+        }
+        button:hover  { transform: translateY(-1px); filter: brightness(1.06); }
+        button:active { transform: scale(0.97); }
+
+        /* Add button */
+        form button {
+            background: #e8698a;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(232, 105, 138, 0.32);
+        }
+
+        ul { list-style: none; padding: 0; }
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 14px;
+            background: #fdf5f7;
+            border: 1px solid #f2d5dc;
+            border-radius: 12px;
+            margin-bottom: 9px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        li:hover {
+            box-shadow: 0 4px 16px rgba(200, 100, 130, 0.10);
+            transform: translateY(-1px);
+        }
+
+        li span {
+            flex: 1;
+            font-size: 0.93rem;
+            color: #3b1f27;
+            line-height: 1.4;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #c9a0ad !important;
+        }
+
+        /* Done / Undo button */
+        .toggle-btn {
+            background: #f0faf0;
+            color: #4a9a60;
+            border: 1.5px solid #b8e0c4;
+            padding: 7px 14px;
+            font-size: 0.8rem;
+        }
+        .toggle-btn:hover { background: #d6f0df; }
+
+        /* Delete button */
+        .delete-btn {
+            background: #fff0f2;
+            color: #d94f6e;
+            border: 1.5px solid #f5bfca;
+            padding: 7px 14px;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+        .delete-btn:hover { background: #ffe0e6; }
+
+        /* Empty state */
+        .empty {
+            text-align: center;
+            color: #c9a0ad;
+            font-size: 0.88rem;
+            padding: 28px 0 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>My Todo List</h1>
+
+    <form action="/add/" method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Add a new task..." required>
+        <button type="submit">Add</button>
+    </form>
+
+    <ul>
+        {% for todo in todos %}
+        <li>
+            <span class="{% if todo.completed %}completed{% endif %}">{{ todo.title }}</span>
+            <a href="/toggle/{{ todo.id }}/">
+                <button class="toggle-btn">{% if todo.completed %}Undo{% else %}Done{% endif %}</button>
+            </a>
+            <a href="/delete/{{ todo.id }}/">
+                <button class="delete-btn">Delete</button>
+            </a>
+        </li>
+        {% empty %}
+        <p class="empty">No todos yet. Add one above!</p>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
