@@ -32,3 +32,15 @@ python manage.py runserver
 - **ECR** — Stores Docker images
 - **RDS** — Managed PostgreSQL database
 - **IAM** — Roles and permissions for secure access
+
+![Architecture](https://github.com/sabnamk16/django-devops-todo/blob/a0409b229264e9482d01a7577875ba28a109bca4/todoapp/Arch.jpeg)
+
+![Database](https://github.com/sabnamk16/django-devops-todo/blob/a0409b229264e9482d01a7577875ba28a109bca4/todoapp/DB.jpeg)
+
+![Instances](https://github.com/sabnamk16/django-devops-todo/blob/a0409b229264e9482d01a7577875ba28a109bca4/todoapp/Instances.jpeg)
+
+![Dashboard](Face-Recognition-Attendance-System-with-Django-and-OpenCV-main/Dashboard.png)
+
+![List](https://github.com/sabnamk16/django-devops-todo/blob/a0409b229264e9482d01a7577875ba28a109bca4/todoapp/List.jpeg)
+
+![Repo](https://github.com/sabnamk16/django-devops-todo/blob/a0409b229264e9482d01a7577875ba28a109bca4/todoapp/Repo.jpeg)
